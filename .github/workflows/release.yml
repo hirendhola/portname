@@ -27,9 +27,13 @@ jobs:
         run: mkdir -p dist
 
       - name: Build all platforms
-        run: bun run build:all
+        run: |
+          bun build ./index.ts --compile --target=bun-linux-x64 --outfile dist/dgate-linux
+          bun build ./index.ts --compile --target=bun-darwin-x64 --outfile dist/dgate-macos
+          bun build ./index.ts --compile --target=bun-darwin-arm64 --outfile dist/dgate-macos-arm64
+          bun build ./index.ts --compile --target=bun-windows-x64 --outfile dist/dgate-windows.exe
 
-      - name: List dist folder
+      - name: List dist
         run: ls -la dist/
 
       - name: Upload release binaries
