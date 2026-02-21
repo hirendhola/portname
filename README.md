@@ -16,21 +16,20 @@ npm run dev  →  http://localhost:3000
 portname run dev  →  http://myapp.localhost:1999
 ```
 
-portname auto-detects your framework, auto-configures it, and gives every project a stable named URL. Multiple projects run at the same time without port conflicts.
+portname auto-detects your framework, auto-configures it, and gives every project a stable named URL. Multiple projects run at the same time without port conflicts — if your default port is taken, portname finds the next free one automatically.
 
 ---
 
 ## Install
 
-```bash
-# npm
-npm install -g portname
+Download a binary from [Releases](https://github.com/hirendhola/portname/releases) — no Node or Bun required.
 
-# bun
-bun add -g portname
+**Mac / Linux:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/hirendhola/portname/main/install.sh | sh
 ```
 
-Or download a binary from [Releases](https://github.com/hirendhola/portname/releases) — no Node or Bun required.
+**Windows:** download `portname-windows.exe` from Releases and add it to your PATH.
 
 ---
 
@@ -93,10 +92,10 @@ WebSocket (HMR) is proxied too — live reload works normally.
 
 ## Why not just use localhost:PORT
 
-- Two projects clash on the same port
-- Cookies set on `localhost` bleed across every app
+- Two projects clash on the same port — portname auto-assigns a free one
+- Cookies set on `localhost` bleed across every app — named subdomains fix this
 - Browser history is a mess of ports
-- Named URLs are easier to remember and share with teammates
+- Named URLs are easier to remember
 
 ---
 
