@@ -22,15 +22,17 @@ portname auto-detects your framework, auto-configures it, and gives every projec
 
 ## Install
 
-Download a binary from [Releases](https://github.com/hirendhola/portname/releases) — no Node or Bun required.
-
 **Mac / Linux:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/hirendhola/portname/main/install.sh | sh
 ```
 
-**Windows:** download `portname-windows.exe` from Releases and add it to your PATH.
+**Windows (PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/hirendhola/portname/main/install.ps1 | iex
+```
 
+Or download a binary directly from [Releases](https://github.com/hirendhola/portname/releases).
 ---
 
 ## Usage

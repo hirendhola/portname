@@ -4,7 +4,6 @@ set -e
 REPO="hirendhola/portname"
 INSTALL_DIR="/usr/local/bin"
 
-# Detect OS and architecture
 OS="$(uname -s)"
 ARCH="$(uname -m)"
 
@@ -21,25 +20,38 @@ case "$OS" in
     ;;
   *)
     echo "Unsupported OS: $OS"
-    echo "Download manually from https://github.com/$REPO/releases"
+    echo "Download manually: https://github.com/$REPO/releases"
     exit 1
     ;;
 esac
 
-# Get latest release URL
+echo "Detecting latest release..."
 LATEST=$(curl -s "https://api.github.com/repos/$REPO/releases/latest" \
-  | grep "browser_download_url.*$BINARY" \
+  | grep "browser_download_url.*$BINARY\"" \
   | cut -d '"' -f 4)
 
 if [ -z "$LATEST" ]; then
-  echo "Could not find release. Check https://github.com/$REPO/releases"
+  echo "✗ Could not find release binary."
+  echo "  Download manually: https://github.com/$REPO/releases"
   exit 1
 fi
 
 echo "Downloading portname..."
-curl -L "$LATEST" -o /tmp/portname
+curl -fL "$LATEST" -o /tmp/portname
 chmod +x /tmp/portname
-mv /tmp/portname "$INSTALL_DIR/portname"
 
-echo "✓ portname installed to $INSTALL_DIR/portname"
+# try /usr/local/bin first, fallback to ~/.local/bin if no permission
+if [ -w "$INSTALL_DIR" ]; then
+  mv /tmp/portname "$INSTALL_DIR/portname"
+  echo "✓ Installed to $INSTALL_DIR/portname"
+else
+  mkdir -p "$HOME/.local/bin"
+  mv /tmp/portname "$HOME/.local/bin/portname"
+  echo "✓ Installed to $HOME/.local/bin/portname"
+  echo ""
+  echo "  Add this to your shell config (~/.bashrc or ~/.zshrc):"
+  echo "  export PATH=\"\$HOME/.local/bin:\$PATH\""
+fi
+
+echo ""
 echo "  Run: portname --help"
