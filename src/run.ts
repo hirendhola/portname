@@ -17,7 +17,7 @@ export async function run(script: string, options: RunOptions = {}) {
   const port = options.port ?? defaultPort;
 
   if (!isRunning()) {
-    console.log("↑ Starting dgate daemon...");
+    console.log("↑ Starting portname daemon...");
     Bun.spawn([process.execPath, "__proxy"], {
       stdout: Bun.file(LOG_FILE),
       stderr: Bun.file(LOG_FILE),
@@ -30,7 +30,7 @@ export async function run(script: string, options: RunOptions = {}) {
 
   const patchResult = patch(framework, appName, cwd);
   if (patchResult.patched) {
-    console.log(`✓ Auto-configured ${framework} for dgate`);
+    console.log(`✓ Auto-configured ${framework} for portname`);
   }
 
   console.log(`\n✓ ${appName} → http://${appName}.localhost:1999\n`);

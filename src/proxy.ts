@@ -1,5 +1,5 @@
 import { getPort } from "./registry";
-import { DGATE_PORT } from "./daemon";
+import { portname_PORT } from "./daemon";
 
 export function startProxy() {
   process.on("SIGTERM", () => {
@@ -7,7 +7,7 @@ export function startProxy() {
   });
 
   Bun.serve<{ port: number; url: string; target?: WebSocket }>({
-    port: DGATE_PORT,
+    port: portname_PORT,
 
     async fetch(req, server) {
       const host = req.headers.get("host") ?? "";
@@ -16,7 +16,7 @@ export function startProxy() {
 
       if (!port) {
         return new Response(
-          `<h1>No app registered as "${appName}"</h1><p>Run: dgate register ${appName} &lt;port&gt;</p>`,
+          `<h1>No app registered as "${appName}"</h1><p>Run: portname register ${appName} &lt;port&gt;</p>`,
           { status: 404, headers: { "content-type": "text/html" } },
         );
       }

@@ -28,10 +28,10 @@ jobs:
 
       - name: Build all platforms
         run: |
-          bun build ./index.ts --compile --target=bun-linux-x64 --outfile dist/dgate-linux
-          bun build ./index.ts --compile --target=bun-darwin-x64 --outfile dist/dgate-macos
-          bun build ./index.ts --compile --target=bun-darwin-arm64 --outfile dist/dgate-macos-arm64
-          bun build ./index.ts --compile --target=bun-windows-x64 --outfile dist/dgate-windows.exe
+          bun build ./index.ts --compile --target=bun-linux-x64 --outfile dist/portname-linux
+          bun build ./index.ts --compile --target=bun-darwin-x64 --outfile dist/portname-macos
+          bun build ./index.ts --compile --target=bun-darwin-arm64 --outfile dist/portname-macos-arm64
+          bun build ./index.ts --compile --target=bun-windows-x64 --outfile dist/portname-windows.exe
 
       - name: List dist
         run: ls -la dist/
@@ -40,10 +40,10 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            dist/dgate-linux
-            dist/dgate-macos
-            dist/dgate-macos-arm64
-            dist/dgate-windows.exe
+            dist/portname-linux
+            dist/portname-macos
+            dist/portname-macos-arm64
+            dist/portname-windows.exe
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

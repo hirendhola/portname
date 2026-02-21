@@ -8,11 +8,11 @@ import {
 import { join } from "path";
 import os from "os";
 
-const DGATE_DIR = join(os.homedir(), ".dgate");
-export const PID_FILE = join(DGATE_DIR, "daemon.pid");
+const portname_DIR = join(os.homedir(), ".portname");
+export const PID_FILE = join(portname_DIR, "daemon.pid");
 
-export const LOG_FILE = join(DGATE_DIR, "daemon.log");
-export const DGATE_PORT = 1999;
+export const LOG_FILE = join(portname_DIR, "daemon.log");
+export const portname_PORT = 1999;
 
 export function readPid() {
   if (!existsSync(PID_FILE)) return null;
@@ -21,7 +21,7 @@ export function readPid() {
 }
 
 export function writePid() {
-  if (!existsSync(DGATE_DIR)) mkdirSync(DGATE_DIR, { recursive: true });
+  if (!existsSync(portname_DIR)) mkdirSync(portname_DIR, { recursive: true });
   writeFileSync(PID_FILE, process.pid.toString());
 }
 
@@ -52,7 +52,7 @@ export function isRunning(): boolean {
 export function stopDaemon() {
   const pid = readPid();
   if (!pid || !isRunning()) {
-    console.log("dgate is not running");
+    console.log("portname is not running");
     return;
   }
 
@@ -63,15 +63,15 @@ export function stopDaemon() {
   }
 
   if (existsSync(PID_FILE)) unlinkSync(PID_FILE);
-  console.log("✓ dgate stopped");
+  console.log("✓ portname stopped");
 }
 
 export function status() {
   if (isRunning()) {
     console.log(
-      `✓ dgate running (pid ${readPid()}) → http://*.localhost:${DGATE_PORT}`,
+      `✓ portname running (pid ${readPid()}) → http://*.localhost:${portname_PORT}`,
     );
   } else {
-    console.log("✗ dgate is not running. Run: dgate start");
+    console.log("✗ portname is not running. Run: portname start");
   }
 }

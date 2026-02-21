@@ -28,12 +28,12 @@ process.on("unhandledRejection", (reason) => {
   process.exit(1);
 });
 
-const cli = cac("dgate");
+const cli = cac("portname");
 
 // ─── start
 cli.command("start", "Start the proxy daemon").action(() => {
   if (isRunning()) {
-    console.log("dgate is already running. Use: dgate status");
+    console.log("portname is already running. Use: portname status");
     process.exit(0);
   }
 
@@ -45,7 +45,7 @@ cli.command("start", "Start the proxy daemon").action(() => {
   });
 
   writeFileSync(PID_FILE, proc.pid.toString());
-  console.log(`✓ dgate started (pid ${proc.pid}) → http://*.localhost:1999`);
+  console.log(`✓ portname started (pid ${proc.pid}) → http://*.localhost:1999`);
   console.log(`  logs: ${LOG_FILE}`);
 });
 
@@ -57,7 +57,7 @@ cli.command("status", "Show daemon status").action(() => status());
 
 // ─── run
 cli
-  .command("run <script>", "Run a dev server with dgate proxy")
+  .command("run <script>", "Run a dev server with portname proxy")
   .option("--name <name>", "App name (defaults to folder name)")
   .option("--port <port>", "Port override")
   .action(async (script: string, options: { name?: string; port?: string }) => {

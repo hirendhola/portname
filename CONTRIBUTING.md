@@ -1,10 +1,10 @@
-# Contributing to dgate
+# Contributing to portname
 
 ## Setup
 
 ```bash
-git clone https://github.com/hirendhola/dgate
-cd dgate
+git clone https://github.com/hirendhola/portname
+cd portname
 bun install
 bun index.ts --help
 ```
@@ -12,15 +12,15 @@ bun index.ts --help
 ## Project structure
 
 ```
-dgate/
+portname/
 ├── index.ts          # CLI entrypoint — all commands
 ├── src/
 │   ├── proxy.ts      # HTTP + WebSocket reverse proxy
-│   ├── registry.ts   # name→port mapping (~/.dgate/routes.json)
+│   ├── registry.ts   # name→port mapping (~/.portname/routes.json)
 │   ├── daemon.ts     # background process management
 │   ├── detect.ts     # framework + package manager detection
 │   ├── patcher.ts    # auto-configure framework configs
-│   └── run.ts        # dgate run — connects everything
+│   └── run.ts        # portname run — connects everything
 ├── .github/
 │   └── workflows/
 │       └── release.yml

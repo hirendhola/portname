@@ -1,22 +1,22 @@
 {
-  "name": "dgate",
+  "name": "portname",
   "version": "0.1.0",
   "description": "Local dev proxy that routes appname.localhost to your dev servers",
   "author": "Hiren Dhola",
   "license": "MIT",
-  "homepage": "https://github.com/hirendhola/dgate",
+  "homepage": "https://github.com/hirendhola/portname",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hirendhola/dgate.git"
+    "url": "https://github.com/hirendhola/portname.git"
   },
   "bugs": {
-    "url": "https://github.com/hirendhola/dgate/issues"
+    "url": "https://github.com/hirendhola/portname/issues"
   },
   "scripts": {
-    "build:linux": "bun build ./index.ts --compile --target=bun-linux-x64 --outfile dist/dgate-linux",
-    "build:mac": "bun build ./index.ts --compile --target=bun-darwin-x64 --outfile dist/dgate-macos",
-    "build:mac-arm": "bun build ./index.ts --compile --target=bun-darwin-arm64 --outfile dist/dgate-macos-arm64",
-    "build:windows": "bun build ./index.ts --compile --target=bun-windows-x64 --outfile dist/dgate-windows.exe",
+    "build:linux": "bun build ./index.ts --compile --target=bun-linux-x64 --outfile dist/portname-linux",
+    "build:mac": "bun build ./index.ts --compile --target=bun-darwin-x64 --outfile dist/portname-macos",
+    "build:mac-arm": "bun build ./index.ts --compile --target=bun-darwin-arm64 --outfile dist/portname-macos-arm64",
+    "build:windows": "bun build ./index.ts --compile --target=bun-windows-x64 --outfile dist/portname-windows.exe",
     "build:all": "bun run build:linux && bun run build:mac && bun run build:mac-arm && bun run build:windows"
   },
   "devDependencies": {

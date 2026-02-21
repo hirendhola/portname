@@ -3,7 +3,7 @@ import { join } from "path";
 import type { Framework } from "./detect";
 
 // marker we add to configs so we can find and remove our changes later
-const DGATE_MARKER = "// dgate:managed";
+const portname_MARKER = "// portname:managed";
 
 interface PatchResult {
   patched: boolean;
@@ -25,7 +25,7 @@ function patchVite(cwd: string, appName: string): PatchResult {
   const content = readFileSync(configPath, "utf-8");
   const hostname = `${appName}.localhost`;
 
-  if (content.includes(DGATE_MARKER)) {
+  if (content.includes(portname_MARKER)) {
     return { patched: true, message: "Already patched" };
   }
 
@@ -36,12 +36,12 @@ function patchVite(cwd: string, appName: string): PatchResult {
   if (serverBlockExists) {
     patched = content.replace(
       "server:",
-      `server:\n    allowedHosts: ["${hostname}"], ${DGATE_MARKER}`,
+      `server:\n    allowedHosts: ["${hostname}"], ${portname_MARKER}`,
     );
   } else {
     patched = content.replace(
       /export default defineConfig\(\{/,
-      `export default defineConfig({\n  server: {\n    allowedHosts: ["${hostname}"], ${DGATE_MARKER}\n  },`,
+      `export default defineConfig({\n  server: {\n    allowedHosts: ["${hostname}"], ${portname_MARKER}\n  },`,
     );
   }
 
@@ -66,13 +66,13 @@ function patchNext(cwd: string, appName: string): PatchResult {
   const content = readFileSync(configPath, "utf-8");
   const hostname = `${appName}.localhost`;
 
-  if (content.includes(DGATE_MARKER)) {
+  if (content.includes(portname_MARKER)) {
     return { patched: true, message: "Already patched" };
   }
 
   const patched = content.replace(
     /const nextConfig[^=]*=\s*\{/,
-    `const nextConfig = {\n  allowedDevOrigins: ["${hostname}"], ${DGATE_MARKER}`,
+    `const nextConfig = {\n  allowedDevOrigins: ["${hostname}"], ${portname_MARKER}`,
   );
 
   writeFileSync(configPath, patched);
@@ -111,12 +111,12 @@ export function unpatch(framework: Framework, cwd: string = process.cwd()) {
     if (!existsSync(filePath)) continue;
 
     const content = readFileSync(filePath, "utf-8");
-    if (!content.includes(DGATE_MARKER)) continue;
+    if (!content.includes(portname_MARKER)) continue;
 
     // Remove any line that contains our marker
     const cleaned = content
       .split("\n")
-      .filter((line) => !line.includes(DGATE_MARKER))
+      .filter((line) => !line.includes(portname_MARKER))
       .join("\n");
 
     writeFileSync(filePath, cleaned);

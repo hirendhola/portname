@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-REPO="hirendhola/dgate"
+REPO="hirendhola/portname"
 INSTALL_DIR="/usr/local/bin"
 
 # Detect OS and architecture
@@ -10,13 +10,13 @@ ARCH="$(uname -m)"
 
 case "$OS" in
   Linux*)
-    BINARY="dgate-linux"
+    BINARY="portname-linux"
     ;;
   Darwin*)
     if [ "$ARCH" = "arm64" ]; then
-      BINARY="dgate-macos-arm64"
+      BINARY="portname-macos-arm64"
     else
-      BINARY="dgate-macos"
+      BINARY="portname-macos"
     fi
     ;;
   *)
@@ -36,10 +36,10 @@ if [ -z "$LATEST" ]; then
   exit 1
 fi
 
-echo "Downloading dgate..."
-curl -L "$LATEST" -o /tmp/dgate
-chmod +x /tmp/dgate
-mv /tmp/dgate "$INSTALL_DIR/dgate"
+echo "Downloading portname..."
+curl -L "$LATEST" -o /tmp/portname
+chmod +x /tmp/portname
+mv /tmp/portname "$INSTALL_DIR/portname"
 
-echo "✓ dgate installed to $INSTALL_DIR/dgate"
-echo "  Run: dgate --help"
+echo "✓ portname installed to $INSTALL_DIR/portname"
+echo "  Run: portname --help"

@@ -2,8 +2,8 @@ import { existsSync, mkdirSync, readFileSync } from "fs";
 import { join } from "path";
 import os from "os";
 
-const DGATE_DIR = join(os.homedir(), ".dgate");
-const REGISTRY_FILE = join(DGATE_DIR, "routes.json");
+const portname_DIR = join(os.homedir(), ".portname");
+const REGISTRY_FILE = join(portname_DIR, "routes.json");
 
 type Registry = Record<string, number>; // { "myapp": 5173, "api": 3001 }
 
@@ -13,7 +13,7 @@ function load(): Registry {
 }
 
 async function save(registry: Registry) {
-  if (!existsSync(DGATE_DIR)) mkdirSync(DGATE_DIR, { recursive: true });
+  if (!existsSync(portname_DIR)) mkdirSync(portname_DIR, { recursive: true });
   await Bun.write(REGISTRY_FILE, JSON.stringify(registry, null, 2));
 }
 
